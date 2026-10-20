@@ -1,0 +1,39 @@
+# ---------- IAR 编译产物 ----------
+**/List/
+**/Obj/
+**/Exe/
+*.dep
+*.pbd
+*.d51
+*.r51
+*.map
+*.lst
+*.s51
+*.hex
+*.bin
+*.out
+*.tmp
+
+# IAR 本地设置
+**/settings/
+*.dni
+*.wsdt
+*.wspos
+*.dbgdt
+*.cspy.bat
+
+# ---------- 系统 ----------
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ---------- 编辑器 ----------
+.vscode/
+.idea/
+*.swp
+*~
+
+# ---------- 私密资料（不进公开仓库） ----------
+*.pptx
+*.docx
+*.pdf
