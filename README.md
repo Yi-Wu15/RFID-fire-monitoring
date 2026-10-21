@@ -42,7 +42,7 @@
 |---|---|
 | `coordinator.c` | 协调器：数据汇聚、LCD 显示、AT 指令上云、命令广播、看门狗软复位 |
 | `enddevice.c` | 终端：DHT11 采集、MQ-2/光敏 ADC 采集、打包单播、接收控制命令 |
-| `IOT.c / IOT.h` | ESP-12F 的 AT 指令状态机与 MQTT 交互（**公开版已脱敏**） |
+| `IOT.c / IOT.h` | ESP-12F 的 AT 指令状态机与 MQTT 交互  |
 | `DHT11.C / DHT11.H` | 单总线温湿度驱动（40 bit 读取 + 累加校验） |
 | `delay.c / delay.h` | 微秒/毫秒延时 |
 | `GenericApp.h` | 端点、Profile、簇、事件位与发送周期定义 |
@@ -64,12 +64,11 @@
 |---|---|---|
 | ![实物](图片/1fce62f3f7169177810028f6eb65a456.jpg) | ![接线](图片/be56e79ffb866df824b0d05f91dea4f3.jpg) | ![运行](图片/d07a094d3f23900be3c8e0f28903ad1b.jpg) |
 
-## 个人贡献（团队分工）
+## 个人贡献
 
-本项目为团队课程设计，README 中如实说明分工，避免误解：
+本项目为团队课程设计：
 
 - **本人负责**：应用层代码实现——ZigBee 终端节点的传感器采集与上报、协调器的数据汇聚与显示、ESP-12F 的 AT 指令/MQTT 上云逻辑，以及整机联调；
-- **队友负责**：课程文档整理与答辩汇报；
 - **硬件平台**：课程提供的 CC2530 开发套件与传感器模块。
 
 ## 如何编译运行
@@ -78,7 +77,7 @@
 
 1. 准备 IAR Embedded Workbench for 8051（EW8051）8.10+ 与 Z-Stack Home 1.2.2a / 3.0；
 2. 将 `源码/Source/` 放回 Z-Stack 的 `Projects/zstack/Samples/GenericApp/Source/`；
-3. 在 `IOT.h` 中填写自己的 WiFi 名称/密码与 OneNET 产品、设备、Token（占位符已留好）；
+3. 在 `IOT.h` 中填写自己的 WiFi 名称/密码与 OneNET 产品、设备、Token；
 4. 用 `CoordinatorEB` 配置编译协调器、`EndDeviceEB` 编译终端。
 
 ## 说明
