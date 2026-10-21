@@ -5,16 +5,27 @@
 多节点环境采集（温湿度 / 烟雾 / 光照）→ ZigBee 自组网上报 → 协调器汇聚 → WiFi 模块以 MQTT 推送到 OneNET → 云端远程下发控制命令。
 
 ## 系统架构
-
-```
- 终端节点 ×3                协调器                   ESP-12F / WiFi              云平台
-┌──────────────┐   ZigBee  ┌──────────────┐  UART  ┌──────────────┐   MQTT   ┌──────────┐
-│ DHT11 温湿度 │ ────────► │ 数据汇聚     │ ─────► │ AT 指令状态机│ ───────► │ OneNET   │
-│ MQ-2 烟雾 ADC│  单播上报 │ LCD 显示     │ 115200 │ MQTT 发布/订阅│          │ 属性/命令│
-│ 光敏 光照 ADC│ ◄──────── │ 命令广播     │ ◄───── │              │ ◄─────── │          │
-└──────────────┘  控制命令 └──────────────┘        └──────────────┘          └──────────┘
-```
-
+<table>
+  <thead>
+    <tr>
+      <th>终端节点 ×3</th><th></th>
+      <th>协调器</th><th></th>
+      <th>ESP-12F / WiFi</th><th></th>
+      <th>云平台</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>DHT11 温湿度<br>MQ-2 烟雾 ADC<br>光敏 光照 ADC</td>
+      <td align="center">ZigBee<br>单播上报 ➡<br>⬅ 控制命令</td>
+      <td>数据汇聚<br>LCD 显示<br>命令广播</td>
+      <td align="center">UART 115200<br>➡⬅</td>
+      <td>AT 指令状态机<br>MQTT 发布/订阅</td>
+      <td align="center">MQTT<br>➡⬅</td>
+      <td>OneNET<br>属性 / 命令</td>
+    </tr>
+  </tbody>
+</table>
 - **上行**：终端把 `id + 温度 + 湿度 + 烟雾浓度 + 光照 + 预留位` 打包，单播到协调器 `0x0000`；协调器按设备 `id` 拆成 4 个云端属性 `cstx_temp` / `cstx_humi` / `cstx_mq2` / `cstx_lux` 发布。
 - **下行**：云端命令经 MQTT 回包进入协调器，再通过 ZigBee 广播给终端，控制两路灯（`A1/A0`、`B1/B0`）。
 
